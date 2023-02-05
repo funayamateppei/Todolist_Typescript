@@ -32,6 +32,16 @@ function App() {
     setTodo(array);
   }
 
+  const handleCheckBox = (id: number, checked: boolean) => {
+    const array = todo.map((x) => {
+      if (x.id === id) {
+        x.checked = !checked;
+      }
+      return x;
+    })
+    setTodo(array);
+  }
+
   type Todo = {
     inputValue: string;
     id: number;
@@ -61,6 +71,11 @@ function App() {
                 value={x.inputValue}
                 className="inputText"
                 onChange={(e) => handleEdit(x.id, e.target.value)}
+                disabled={x.checked}
+              />
+              <input
+                type="checkbox"
+                onChange={(e) => handleCheckBox(x.id, x.checked)}
               />
             </li>
           ))}
