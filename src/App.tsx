@@ -1,22 +1,55 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [inputValue, setInputValue] = useState("");
+  const [todo, setTodo] = useState<Todo[]>([]);
+
+  const todoHandleChange = (e: { target: { value: any } }) => {
+    setInputValue(e.target.value);
+  };
+
+  const submitHandleClick = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    const array: Todo = {
+      inputValue: inputValue,
+      id: todo.length,
+      checked: false,
+    }
+    setTodo([array, ...todo]);
+    setInputValue('');
+    // console.log(todo);
+  }
+
+  type Todo = {
+    inputValue: string;
+    id: number;
+    checked: boolean;
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <h2>TODO LIST with Typescript</h2>
+        <form onSubmit={submitHandleClick}>
+          <input
+            type="text"
+            onChange={todoHandleChange}
+            className="inputText"
+          />
+          <button type="submit" className="submitButton">
+            登録
+          </button>
+        </form>
+        <ul>
+          {todo.map((x, i) => (
+            <li key={i}>
+              {x.inputValue}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
