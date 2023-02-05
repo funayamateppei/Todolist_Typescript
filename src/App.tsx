@@ -42,6 +42,13 @@ function App() {
     setTodo(array);
   }
 
+  const handleDelete = (id: number) => {
+    const array = todo.filter((x) => {
+      return x.id !== id
+    })
+    setTodo(array);
+  }
+
   type Todo = {
     inputValue: string;
     id: number;
@@ -77,6 +84,11 @@ function App() {
                 type="checkbox"
                 onChange={(e) => handleCheckBox(x.id, x.checked)}
               />
+              <button
+                onClick={(e) => handleDelete(x.id)}
+              >
+                削除
+              </button>
             </li>
           ))}
         </ul>
