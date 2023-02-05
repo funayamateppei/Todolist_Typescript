@@ -12,6 +12,7 @@ function App() {
 
   const submitHandleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    // const input = document.getElementById('input');
     const array: Todo = {
       inputValue: inputValue,
       id: todo.length,
@@ -21,6 +22,8 @@ function App() {
     setInputValue("");
     // console.log(todo);
   };
+
+  
 
   const handleEdit = (id: number, inputValue: string) => {
     const array = todo.map((x) => {
@@ -63,6 +66,8 @@ function App() {
           <input
             type="text"
             onChange={todoHandleChange}
+            value={inputValue}
+            id = "input"
             className="inputText"
           />
           <button type="submit" className="submitButton">
