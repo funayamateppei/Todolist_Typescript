@@ -45,7 +45,10 @@ function App() {
     setTodo(array);
   }
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number, checked: boolean) => {
+    if (checked === false) {
+      return;
+    }
     const array = todo.filter((x) => {
       return x.id !== id
     })
@@ -90,7 +93,7 @@ function App() {
                 onChange={(e) => handleCheckBox(x.id, x.checked)}
               />
               <button
-                onClick={(e) => handleDelete(x.id)}
+                onClick={(e) => handleDelete(x.id, x.checked)}
               >
                 削除
               </button>
