@@ -6,20 +6,30 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [todo, setTodo] = useState<Todo[]>([]);
 
-  const todoHandleChange = (e: { target: { value: any } }) => {
+  const todoHandleChange = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
   };
 
-  const submitHandleClick = (e: { preventDefault: () => void; }) => {
+  const submitHandleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const array: Todo = {
       inputValue: inputValue,
       id: todo.length,
       checked: false,
-    }
+    };
     setTodo([array, ...todo]);
-    setInputValue('');
+    setInputValue("");
     // console.log(todo);
+  };
+
+  const handleEdit = (id: number, inputValue: string) => {
+    const array = todo.map((x) => {
+      if (x.id === id) {
+        x.inputValue = inputValue;
+      }
+      return x;
+    })
+    setTodo(array);
   }
 
   type Todo = {
@@ -45,7 +55,13 @@ function App() {
         <ul>
           {todo.map((x, i) => (
             <li key={i}>
-              {x.inputValue}
+              {/* <li>{x.inputValue}</li> */}
+              <input
+                type="text"
+                value={x.inputValue}
+                className="inputText"
+                onChange={(e) => handleEdit(x.id, e.target.value)}
+              />
             </li>
           ))}
         </ul>
